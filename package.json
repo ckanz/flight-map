@@ -1,0 +1,19 @@
+{
+  "name": "d3-map-base",
+  "version": "0.0.1",
+  "description": "A simple base example of a world map created with d3",
+  "main": "app.js",
+  "scripts": {
+    "serve": "python3 -m http.server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckanz/d3-map-base.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckanz/d3-map-base/issues"
+  },
+  "homepage": "https://github.com/ckanz/d3-map-base#readme"
+}
