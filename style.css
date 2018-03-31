@@ -3,11 +3,17 @@ svg rect {
 }
 
 .country {
-  fill: brown;
-  stroke: black;
-  stroke-width: 2;
+  fill: grey;
+  stroke: lightgrey;
+  stroke-width: 0;
 }
 
 .country:hover {
-  fill: green;
+  fill: black;
+}
+
+.flightarc {
+  stroke-width: 2px;
+  stroke: orange;
+  fill: none;
 }
