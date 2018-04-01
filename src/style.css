@@ -1,0 +1,19 @@
+svg rect {
+  fill: lightblue;
+}
+
+.country {
+  fill: grey;
+  stroke: lightgrey;
+  stroke-width: 0;
+}
+
+.country:hover {
+  fill: black;
+}
+
+.flightarc {
+  stroke-width: 2px;
+  stroke: orange;
+  fill: none;
+}

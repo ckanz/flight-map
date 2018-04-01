@@ -1,5 +1,5 @@
 .DS_Store
-*.vim
+dist/
 
 # Logs
 logs
