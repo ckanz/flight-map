@@ -14,8 +14,10 @@ module.exports = {
       use: ['style-loader', 'css-loader']
     }]
   },
+  stats: {
+    warnings: false
+  },
   plugins: [
-    new HtmlWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html'
