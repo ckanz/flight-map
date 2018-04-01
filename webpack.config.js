@@ -8,15 +8,22 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+  module: {
+    rules: [{
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    }]
+  },
   plugins: [
     new HtmlWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html'
     }),
-    new CopyWebpackPlugin([
-      { from: 'globe.geo.json', to: '.' },
-      { from: 'style.css', to: '.' }
+    new CopyWebpackPlugin([{
+        from: 'globe.geo.json',
+        to: '.'
+      }
     ])
   ]
 };
