@@ -50,17 +50,21 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +22 app.js
-badd +0 style.css
+badd +28 app.js
+badd +16 style.css
 badd +9 webpack.config.js
-badd +0 package.json
+badd +7 package.json
 badd +15 .gitignore
-badd +0 index.html
+badd +15 index.html
+badd +3 build.sh
+badd +0 src/app.js
+badd +0 src/style.css
+badd +0 src/index.html
 argglobal
 silent! argdel *
 argadd ~/Documents/Git/flight-map
 set stal=2
-edit style.css
+edit src/style.css
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -102,7 +106,7 @@ setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal noexpandtab
+setlocal expandtab
 if &filetype != 'css'
 setlocal filetype=css
 endif
@@ -177,16 +181,16 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 19 - ((18 * winheight(0) + 21) / 42)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-19
+1
 normal! 0
 lcd ~/Documents/Git/flight-map
 wincmd w
 argglobal
-edit ~/Documents/Git/flight-map/index.html
+edit ~/Documents/Git/flight-map/src/index.html
 noremap <buffer>  :call HtmlBeautify()
 setlocal noautoindent
 setlocal backupcopy=
@@ -291,12 +295,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 14 - ((13 * winheight(0) + 21) / 42)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-14
-normal! 023|
+1
+normal! 0
 lcd ~/Documents/Git/flight-map
 wincmd w
 exe 'vert 1resize ' . ((&columns * 90 + 90) / 181)
@@ -418,12 +422,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 15 - ((14 * winheight(0) + 21) / 42)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-15
-normal! 019|
+1
+normal! 0
 lcd ~/Documents/Git/flight-map
 wincmd w
 argglobal
@@ -532,17 +536,17 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 10 - ((9 * winheight(0) + 21) / 42)
+let s:l = 29 - ((28 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-10
-normal! 08|
+29
+normal! 06|
 lcd ~/Documents/Git/flight-map
 wincmd w
 exe 'vert 1resize ' . ((&columns * 90 + 90) / 181)
 exe 'vert 2resize ' . ((&columns * 90 + 90) / 181)
-tabedit ~/Documents/Git/flight-map/app.js
+tabedit ~/Documents/Git/flight-map/src/app.js
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -578,7 +582,7 @@ setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal noexpandtab
+setlocal expandtab
 if &filetype != 'javascript'
 setlocal filetype=javascript
 endif
@@ -653,14 +657,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 22 - ((20 * winheight(0) + 21) / 42)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-22
-normal! 06|
+1
+normal! 0
 lcd ~/Documents/Git/flight-map
-tabnext 3
+tabnext 2
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
