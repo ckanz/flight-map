@@ -9,7 +9,10 @@ import {
 } from 'd3-selection';
 import {
   geoPath,
-  geoEquirectangular
+  geoEquirectangular,
+  geoConicConformal,
+  geoStereographic,
+  geoAzimuthalEqualArea
 } from 'd3-geo';
 import {
   zoom
@@ -21,7 +24,7 @@ import {
 const width = 1000;
 const height = 425;
 const path = geoPath()
-  .projection(geoEquirectangular());
+  .projection(geoAzimuthalEqualArea());
 
 const getData = callback => {
   const flightData = csv('./data/flightData.csv', csv => {
@@ -48,7 +51,7 @@ const drawMap = arcData => {
     const countriesGroup = svg
       .call(
         zoom()
-        .scaleExtent([1, 5])
+        .scaleExtent([1, 10])
         .translateExtent([
           [0, 0],
           [width, height]
@@ -79,6 +82,7 @@ const drawMap = arcData => {
       .data(arcData)
       .enter()
       .append('path')
+      .attr('stroke-linecap', 'round')
       .attr('class', 'flightarc')
       .attr('d', path);
   });
