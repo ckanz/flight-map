@@ -8,12 +8,8 @@ svg rect {
   stroke-width: 0;
 }
 
-.country:hover {
-  fill: black;
-}
-
 .flightarc {
-  stroke-width: 2px;
+  stroke-width: 1px;
   stroke: orange;
   fill: none;
 }

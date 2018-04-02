@@ -1,6 +1,7 @@
 const style = require('./style.css');
 import {
-  json
+  json,
+  csv
 } from 'd3-request';
 import {
   select,
@@ -10,51 +11,79 @@ import {
   geoPath,
   geoEquirectangular
 } from 'd3-geo';
+import {
+  zoom
+} from 'd3-zoom';
+import {
+  event
+} from 'd3';
 
 const width = 1000;
 const height = 425;
-
 const path = geoPath()
   .projection(geoEquirectangular());
 
-const lineData = [{
-  type: 'LineString',
-  coordinates: [
-    [-0.461941, 51.4706],
-    [151.177002, -33.94609833]
-  ]
-}];
+const getData = callback => {
+  const flightData = csv('./data/flightData.csv', csv => {
+    const flightArcs = csv.map(row => {
+      return {
+        type: 'LineString',
+        coordinates: [
+          [row.source_longitude, row.source_latitude],
+          [row.target_longitude, row.target_latitude]
+        ]
+      };
+    });
+    callback(flightArcs);
+  });
+};
 
-const svg = select('#my-map')
-  .append('svg')
-  .attr('width', width)
-  .attr('height', height);
-
-json('./globe.geo.json', (json) => {
-  const countriesGroup = svg
-    .append('g')
-    .attr('id', 'map');
-
-  countriesGroup
-    .append('rect')
-    .attr('x', 0)
-    .attr('y', 0)
+const drawMap = arcData => {
+  const svg = select('#my-map')
+    .append('svg')
     .attr('width', width)
     .attr('height', height);
 
-  const countries = countriesGroup
-    .selectAll('path')
-    .data(json.features)
-    .enter()
-    .append('path')
-    .attr('d', path)
-    .attr('id', (d) => `country ${d.properties.iso_a3}`)
-    .attr('class', 'country');
+  json('./globe.geo.json', (json) => {
+    const countriesGroup = svg
+      .call(
+        zoom()
+        .scaleExtent([1, 5])
+        .translateExtent([
+          [0, 0],
+          [width, height]
+        ])
+        .on('zoom', () => {
+          countriesGroup.attr('transform', event.transform)
+        }))
+      .append('g')
+      .attr('id', 'map');
 
-  const pathArcs = svg.selectAll('.flightarc')
-    .data(lineData)
-    .enter()
-    .append('path')
-    .attr('class', 'flightarc')
-    .attr('d', path);
+    countriesGroup
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', width)
+      .attr('height', height);
+
+    const countries = countriesGroup
+      .selectAll('path')
+      .data(json.features)
+      .enter()
+      .append('path')
+      .attr('d', path)
+      .attr('id', (d) => `country ${d.properties.iso_a3}`)
+      .attr('class', 'country');
+
+    const pathArcs = countriesGroup.selectAll('.flightarc')
+      .data(arcData)
+      .enter()
+      .append('path')
+      .attr('class', 'flightarc')
+      .attr('d', path);
+  });
+};
+
+getData(data => {
+  drawMap(data);
 });
