@@ -12,6 +12,7 @@ import {
   geoEquirectangular,
   geoConicConformal,
   geoStereographic,
+  geoAzimuthalEquidistant,
   geoAzimuthalEqualArea
 } from 'd3-geo';
 import {
@@ -22,9 +23,16 @@ import {
 } from 'd3';
 
 const width = 1000;
-const height = 425;
+const height = 1000;
+var projection = geoAzimuthalEqualArea()
+    .scale(150)
+    .translate([width / 2, height / 2])
+    .rotate([0, 0])
+    .clipAngle(180 - 1e-3)
+    .precision(0.1);
+
 const path = geoPath()
-  .projection(geoAzimuthalEqualArea());
+  .projection(projection);
 
 const getData = callback => {
   const flightData = csv('./data/flightData.csv', csv => {
@@ -39,6 +47,13 @@ const getData = callback => {
     });
     callback(flightArcs);
   });
+};
+
+const update = () => {
+  selectAll("path")
+    //.interrupt().transition()
+    //.duration(1000).ease(d3.easeLinear)
+    .attr("d", geoPath().projection(projection.rotate([event.x, event.y])));
 };
 
 const drawMap = arcData => {
@@ -59,6 +74,7 @@ const drawMap = arcData => {
         .on('zoom', () => {
           countriesGroup.attr('transform', event.transform)
         }))
+      .on('click', update)
       .append('g')
       .attr('id', 'map');
 
@@ -85,6 +101,8 @@ const drawMap = arcData => {
       .attr('stroke-linecap', 'round')
       .attr('class', 'flightarc')
       .attr('d', path);
+
+    update()
   });
 };
 
