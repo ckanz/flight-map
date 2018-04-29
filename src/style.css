@@ -1,11 +1,11 @@
 svg rect {
-  fill: lightblue;
+  fill: black;
 }
 
 .country {
-  fill: grey;
-  stroke: lightgrey;
-  stroke-width: 0;
+  fill: rgba(0,0,0,0);
+  stroke: green;
+  stroke-width: 1;
 }
 
 .flightarc {

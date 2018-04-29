@@ -9,23 +9,31 @@ import {
 } from 'd3-selection';
 import {
   geoPath,
+  geoSatellite,
   geoEquirectangular,
   geoConicConformal,
-  geoStereographic,
-  geoAzimuthalEquidistant,
-  geoAzimuthalEqualArea
+  geoAzimuthalEqualArea,
+  geoStereographic
 } from 'd3-geo';
+import {
+  geoAiry,
+  geoAitoff,
+}  from 'd3-geo-projection';
 import {
   zoom
 } from 'd3-zoom';
 import {
-  event
+  event,
+  drag
 } from 'd3';
+import {
+  scaleLinear
+} from 'd3-scale';
 
 const width = 1000;
 const height = 1000;
 var projection = geoAzimuthalEqualArea()
-    .scale(150)
+    .scale(250)
     .translate([width / 2, height / 2])
     .rotate([0, 0])
     .clipAngle(180 - 1e-3)
@@ -49,11 +57,18 @@ const getData = callback => {
   });
 };
 
+const rotateXScale = scaleLinear().range([0, 360]).domain([0, width]);
+const rotateYScale = scaleLinear().range([0, 180]).domain([0, height]);
+
 const update = () => {
   selectAll("path")
-    //.interrupt().transition()
-    //.duration(1000).ease(d3.easeLinear)
-    .attr("d", geoPath().projection(projection.rotate([event.x, event.y])));
+    .transition()
+    .duration(300)
+    .attr("d", geoPath().projection(projection.rotate([
+      rotateXScale(event.x),
+      //rotateYScale(event.y)
+      0
+    ])));
 };
 
 const drawMap = arcData => {
@@ -65,6 +80,10 @@ const drawMap = arcData => {
   json('./globe.geo.json', (json) => {
     const countriesGroup = svg
       .call(
+        drag()
+          .on("drag", update)
+      )
+      .call(
         zoom()
         .scaleExtent([1, 10])
         .translateExtent([
@@ -74,7 +93,6 @@ const drawMap = arcData => {
         .on('zoom', () => {
           countriesGroup.attr('transform', event.transform)
         }))
-      .on('click', update)
       .append('g')
       .attr('id', 'map');
 
