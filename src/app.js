@@ -10,6 +10,7 @@ import {
 import {
   geoPath,
   geoSatellite,
+  geoOrthographic,
   geoEquirectangular,
   geoConicConformal,
   geoAzimuthalEqualArea,
@@ -24,7 +25,8 @@ import {
 } from 'd3-zoom';
 import {
   event,
-  drag
+  drag,
+  mouse
 } from 'd3';
 import {
   scaleLinear
@@ -32,12 +34,11 @@ import {
 
 const width = 1000;
 const height = 1000;
-var projection = geoAzimuthalEqualArea()
+var projection = geoOrthographic()
     .scale(250)
     .translate([width / 2, height / 2])
     .rotate([0, 0])
-    .clipAngle(180 - 1e-3)
-    .precision(0.1);
+    .precision(0.5);
 
 const path = geoPath()
   .projection(projection);
@@ -57,19 +58,19 @@ const getData = callback => {
   });
 };
 
-const rotateXScale = scaleLinear().range([0, 360]).domain([0, width]);
+const rotateXScale = scaleLinear().range([-180, 180]).domain([0, width]);
 const rotateYScale = scaleLinear().range([0, 180]).domain([0, height]);
+let latestRotation = [0, 0]
 
-const update = () => {
-  selectAll("path")
-    .transition()
-    .duration(300)
-    .attr("d", geoPath().projection(projection.rotate([
-      rotateXScale(event.x),
-      //rotateYScale(event.y)
-      0
-    ])));
+const updateRotation = () => {
+  projection.rotate([rotateXScale(event.x), 0])
+  selectAll("path").attr("d", path);
 };
+
+const setNewRotation = () => {
+  latestRotation = [rotateXScale(event.x), 0]
+  console.log('latestRotation', latestRotation)
+}
 
 const drawMap = arcData => {
   const svg = select('#my-map')
@@ -81,7 +82,8 @@ const drawMap = arcData => {
     const countriesGroup = svg
       .call(
         drag()
-          .on("drag", update)
+          .on("drag", updateRotation)
+          .on("end", setNewRotation)
       )
       .call(
         zoom()
@@ -97,11 +99,10 @@ const drawMap = arcData => {
       .attr('id', 'map');
 
     countriesGroup
-      .append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', width)
-      .attr('height', height);
+      .append('circle')
+      .attr('cx', width / 2)
+      .attr('cy', height / 2)
+      .attr('r', width / 4);
 
     const countries = countriesGroup
       .selectAll('path')
@@ -116,11 +117,9 @@ const drawMap = arcData => {
       .data(arcData)
       .enter()
       .append('path')
-      .attr('stroke-linecap', 'round')
+      // .attr('stroke-linecap', 'round')
       .attr('class', 'flightarc')
       .attr('d', path);
-
-    update()
   });
 };
 

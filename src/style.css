@@ -1,9 +1,18 @@
+svg {
+  background: grey;
+}
+
 svg rect {
-  fill: black;
+  background: black;
+}
+
+path {
+  fill: none;
+  stroke: #000000;
 }
 
 .country {
-  fill: rgba(0,0,0,0);
+  fill: darkgreen;
   stroke: green;
   stroke-width: 1;
 }
