@@ -60,17 +60,21 @@ const getData = callback => {
 
 const rotateXScale = scaleLinear().range([-180, 180]).domain([0, width]);
 const rotateYScale = scaleLinear().range([0, 180]).domain([0, height]);
-let latestRotation = [0, 0]
+let latestRotation = [0, 0];
 
 const updateRotation = () => {
-  projection.rotate([rotateXScale(event.x), 0])
+  projection.rotate([rotateXScale(event.x), 0]);
   selectAll("path").attr("d", path);
 };
 
-const setNewRotation = () => {
-  latestRotation = [rotateXScale(event.x), 0]
-  console.log('latestRotation', latestRotation)
-}
+const autoRotate = () => {
+  latestRotation[0] += .5; // = latestRotation[0] + 1
+  projection.rotate(latestRotation);
+  selectAll("path").attr("d", path);
+  console.log('autoRotate', latestRotation)
+};
+
+const setNewRotation = () => { latestRotation = [rotateXScale(event.x), 0] }
 
 const drawMap = arcData => {
   const svg = select('#my-map')
@@ -80,11 +84,13 @@ const drawMap = arcData => {
 
   json('./globe.geo.json', (json) => {
     const countriesGroup = svg
+      /*
       .call(
         drag()
           .on("drag", updateRotation)
           .on("end", setNewRotation)
       )
+      */
       .call(
         zoom()
         .scaleExtent([1, 10])
@@ -94,7 +100,8 @@ const drawMap = arcData => {
         ])
         .on('zoom', () => {
           countriesGroup.attr('transform', event.transform)
-        }))
+        })
+      )
       .append('g')
       .attr('id', 'map');
 
@@ -120,6 +127,10 @@ const drawMap = arcData => {
       // .attr('stroke-linecap', 'round')
       .attr('class', 'flightarc')
       .attr('d', path);
+
+    setInterval(() => {
+      autoRotate();
+    }, 10);
   });
 };
 
