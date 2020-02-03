@@ -37,16 +37,16 @@ const height = window.screen.availHeight || 1000;
 const mapRadius = height / 3;
 const projection = geoOrthographic()
   .scale(mapRadius)
-  .translate([width / 2, height / 2])
-  .rotate([0, 0])
-  .precision(0.5);
+  .translate([width / 2, height / 2]);
 
 const path = geoPath()
   .projection(projection);
 
 const getData = callback => {
   const flightData = csv('./data/flightData.csv', csv => {
+    const countriesVisisted = [];
     const flightArcs = csv.map(row => {
+      countriesVisisted.push(row.target_country);
       return {
         type: 'LineString',
         coordinates: [
@@ -55,7 +55,7 @@ const getData = callback => {
         ]
       };
     });
-    callback(flightArcs);
+    callback({ flightArcs, countriesVisisted });
   });
 };
 
@@ -82,7 +82,7 @@ const flicker = () => {
   document.getElementById('atmosphere-offset').setAttribute('dx', getNewAtmosphereRadius())
 };
 
-const drawMap = arcData => {
+const drawMap = ({ flightArcs, countriesVisisted }) => {
   json('./globe.geo.json', (json) => {
     const countriesGroup = select('#flightmap')
       /*
@@ -121,20 +121,30 @@ const drawMap = arcData => {
       .attr('cy', height / 2)
       .attr('r', mapRadius);
 
-    const countries = countriesGroup
+    countriesGroup
       .selectAll('path')
       .data(json.features)
       .enter()
       .append('path')
       .attr('d', path)
-      .attr('id', (d) => `country ${d.properties.iso_a3}`)
-      .attr('class', 'country');
+      .attr('id', d => `country ${d.properties.iso_a3}`)
+      .attr('filter', d => {
+        if (countriesVisisted.includes(d.properties.name)) {
+          return 'url(#path-glow)';
+        }
+      })
+      .attr('class', d => {
+        if (countriesVisisted.includes(d.properties.name)) {
+          return 'country highlight';
+        }
+        return 'country';
+      });
 
-    const pathArcs = countriesGroup.selectAll('.flightarc')
-      .data(arcData)
+    countriesGroup
+      .selectAll('.flightarc')
+      .data(flightArcs)
       .enter()
       .append('path')
-      .attr('stroke-linecap', 'round')
       .attr('class', 'flightarc')
       .attr('filter', 'url(#path-glow)')
       .attr('d', path);

@@ -34,6 +34,12 @@ svg .country {
   fill: rgb(10,10,10);
 }
 
+svg .highlight {
+  stroke: green;
+  fill: darkgreen;
+  fill-opacity: 0.1;
+}
+
 svg .flightarc {
   stroke: orange;
   opacity: 0.7;
