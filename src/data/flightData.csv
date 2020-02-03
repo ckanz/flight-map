@@ -1,24 +1,48 @@
-context,start,source_latitude,source_longitude,end,target_latitude,target_longitude,amount
-Lufthansa,Frankfurt,50.0333333,8.5705556,Malta,36.027199,14.2728,2
-RyanAir,Frankfurt,49.94869995,7.26388979,Granada,37.1332016,-3.63568997,2
-BA,Frankfurt,50.0333333,8.5705556,London,51.4706,-0.461941,10
-Aerlingus,Frankfurt,50.0333333,8.5705556,Dublin,55.0442009,-8.340999603,4
-RyanAir,Frankfurt,49.94869995,7.26388979,Kerry,52.18090057,-9.523779869,1
-Lufthansa,Frankfurt,50.0333333,8.5705556,Siciliy,37.466801,15.0664,1
-Lufthansa,Frankfurt,50.0333333,8.5705556,Santorini,36.39920044,25.47929955,1
-Lufthansa,Frankfurt,50.0333333,8.5705556,Barcelona,41.29710007,2.078459978,1
-Lufthansa,Frankfurt,50.0333333,8.5705556,Linz,48.2332,14.1875,1
-Lufthansa,London,51.4706,-0.461941,Berlin,52.55970001,13.2876997,1
-BA,London,51.4706,-0.461941,Cork,51.84130096,-8.491109848,1
-Delta,London,51.4706,-0.461941,New York,40.63980103,-73.77890015,2
-Quantas,London,51.4706,-0.461941,Dubai,25.25279999,55.36439896,1
-Quantas,Dubai,25.25279999,55.36439896,Sydney,-33.94609833,151.177002,1
-Thompson,London,51.4706,-0.461941,Zakynthos,37.75090027,20.88430023,1
-RyanAir,London,51.88499832,0.2349999994,Rome,41.8002778,12.2388889,1
-Iberia,London,51.4706,-0.461941,Gijon,43.56359863,-6.034619808,2
-EasyJet,London,51.14810181,-0.1902779937,Split,43.53889847,16.29800034,1
-EasyJet,London,51.14810181,-0.1902779937,Dubrovnik,42.56140137,18.26819992,1
-Norwegian,London,51.14810181,-0.1902779937,Oslo,60.19390106,11.10039997,6
-Finnair,London,51.4706,-0.461941,Helsinki,60.31719971,24.9633007,1
-Lufthansa,London,51.4706,-0.461941,Stuttgart,48.68989944,9.221960068,1
-AirIceland,London,51.4706,-0.461941,Iceland,66.5458,-18.0173,1
+source_ICAO,target_ICAO,airline,source_airport,source_city,source_country,source_IATA,source_latitude,source_longitude,source_AMSL,target_airport,target_city,target_country,target_IATA,target_latitude,target_longitude,target_AMSL
+EDDF,LMML,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Malta International Airport,Malta,Malta,MLA,35.857498,14.4775,300
+EDFH,LEGR,RyanAir,Frankfurt-Hahn Airport,Hahn,Germany,HHN,49.94869995,7.26388979,1649,Federico Garcia Lorca Airport,Granada,Spain,GRX,37.18870163,-3.777359962,1860
+EDDF,EGLL,British Airways,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83
+EDDF,EGLL,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83
+EDDF,EGLC,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,London City Airport,London,United Kingdom,LCY,51.505299,0.055278,19
+EDDF,EGSS,RyanAir,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,London Stansted Airport,London,United Kingdom,STN,51.88499832,0.2349999994,348
+EDDF,EIDW,Aerlingus,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Dublin Airport,Dublin,Ireland,DUB,53.42129898,-6.270070076,242
+EDFH,EIKY,RyanAir,Frankfurt-Hahn Airport,Hahn,Germany,HHN,49.94869995,7.26388979,1649,Kerry Airport,Kerry,Ireland,KIR,52.18090057,-9.523779869,112
+EDDF,LICC,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Catania-Fontanarossa Airport,Catania,Italy,CTA,37.466801,15.0664,39
+EDDF,LGSR,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Santorini Airport,Thira,Greece,JTR,36.39920044,25.47929955,127
+EDDF,LGAV,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Eleftherios Venizelos International Airport,Athens,Greece,ATH,37.93640137,23.94449997,308
+EGLL,LGSR,Lufthansa,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Santorini Airport,Thira,Greece,JTR,36.39920044,25.47929955,127
+EDDF,LEBL,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Barcelona International Airport,Barcelona,Spain,BCN,41.29710007,2.078459978,12
+EDDF,LOWL,Lufthansa,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Linz Hörsching Airport,Linz,Austria,LNZ,48.2332,14.1875,980
+EGLL,EDDT,Lufthansa,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Berlin-Tegel International Airport,Berlin,Germany,TXL,52.55970001,13.2876997,122
+EGLL,EICK,British Airways,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Cork Airport,Cork,Ireland,ORK,51.84130096,-8.491109848,502
+EGLL,KJFK,Norwegian,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,John F Kennedy International Airport,New York,United States,JFK,40.63980103,-73.77890015,13
+EGLL,KJFK,Delta,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,John F Kennedy International Airport,New York,United States,JFK,40.63980103,-73.77890015,13
+EGLL,OMDB,Quantas,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Dubai International Airport,Dubai,United Arab Emirates,DXB,25.25279999,55.36439896,62
+OMDB,YSSY,Quantas,Dubai International Airport,Dubai,United Arab Emirates,DXB,25.25279999,55.36439896,62,Sydney Kingsford Smith International Airport,Sydney,Australia,SYD,-33.94609833,151.177002,21
+EGLL,LGZA,Thompson,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Dionysios Solomos Airport,Zakynthos,Greece,ZTH,37.75090027,20.88430023,15
+EGLL,LIRF,RyanAir,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Leonardo da Vinci–Fiumicino Airport,Rome,Italy,FCO,41.8002778,12.2388889,13
+EGLL,LEAS,Iberia,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Asturias Airport,Aviles,Spain,OVD,43.56359863,-6.034619808,416
+EGKK,LDSP,EasyJet,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202,Split Airport,Split,Croatia,SPU,43.53889847,16.29800034,79
+EGKK,LDDU,EasyJet,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202,Dubrovnik Airport,Dubrovnik,Croatia,DBV,42.56140137,18.26819992,527
+EGKK,ENGM,Norwegian,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202,Oslo Gardermoen Airport,Oslo,Norway,OSL,60.19390106,11.10039997,681
+EGLL,ESTA,Finnair,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Ängelholm-Helsingborg Airport,Ängelholm,Sweden,AGH,56.29610062,12.84710026,68
+EGLL,EDDS,Lufthansa,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Stuttgart Airport,Stuttgart,Germany,STR,48.68989944,9.221960068,1276
+EGLL,BIVO,AirIceland,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Vopnafjörður Airport,Vopnafjörður,Iceland,VPN,65.72059631,-14.85060024,16
+EGKK,EDDH,EasyJet,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202,Hamburg Airport,Hamburg,Germany,HAM,53.63040161,9.988229752,53
+EGKK,LEMG,EasyJet,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202,Málaga Airport,Malaga,Spain,AGP,36.67490005,-4.499110222,53
+EGKK,EKCH,EasyJet,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202,Copenhagen Kastrup Airport,Copenhagen,Denmark,CPH,55.61790085,12.65600014,17
+EGKK,LEAS,Vueling,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202,Asturias Airport,Aviles,Spain,OVD,43.56359863,-6.034619808,416
+LEAS,LEBL,Vueling,Asturias Airport,Aviles,Spain,OVD,43.56359863,-6.034619808,416,Barcelona International Airport,Barcelona,Spain,BCN,41.29710007,2.078459978,12
+LEBL,LFPG,Vueling,Barcelona International Airport,Barcelona,Spain,BCN,41.29710007,2.078459978,12,Charles de Gaulle International Airport,Paris,France,CDG,49.01279831,2.549999952,392
+LFPG,EGKK,Vueling,Charles de Gaulle International Airport,Paris,France,CDG,49.01279831,2.549999952,392,London Gatwick Airport,London,United Kingdom,LGW,51.14810181,-0.1902779937,202
+EDDF,RCTP,China Airways,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364,Taiwan Taoyuan International Airport,Taipei,Taiwan,TPE,25.0777,121.233002,106
+RCTP,YBBN,China Airways,Taiwan Taoyuan International Airport,Taipei,Taiwan,TPE,25.0777,121.233002,106,Brisbane International Airport,Brisbane,Australia,BNE,-27.38419914,153.1170044,13
+YBBN,YSSY,Virgin Australia,Brisbane International Airport,Brisbane,Australia,BNE,-27.38419914,153.1170044,13,Sydney Kingsford Smith International Airport,Sydney,Australia,SYD,-33.94609833,151.177002,21
+YSSY,YMML,JetStar,Sydney Kingsford Smith International Airport,Sydney,Australia,SYD,-33.94609833,151.177002,21,Melbourne International Airport,Melbourne,Australia,MEL,-37.6733017,144.8430023,434
+YMML,VHHH,Virgin Atlantic,Melbourne International Airport,Melbourne,Australia,MEL,-37.6733017,144.8430023,434,Chek Lap Kok International Airport,Hong Kong,Hong Kong,HKG,22.30890083,113.9150009,28
+VHHH,EGLL,Virgin Atlantic,Chek Lap Kok International Airport,Hong Kong,Hong Kong,HKG,22.30890083,113.9150009,28,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83
+EGSS,LIRP,RyanAir,London Stansted Airport,London,United Kingdom,STN,51.88499832,0.2349999994,348,Pisa International Airport,Pisa,Italy,PSA,43.683899,10.3927,6
+ESSA,EGLL,SAS,Stockholm-Arlanda Airport,Stockholm,Sweden,ARN,59.65190125,17.91860008,137,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83
+EGLL,RPLL,Phillipine Airways,London Heathrow Airport,London,United Kingdom,LHR,51.4706,-0.461941,83,Ninoy Aquino International Airport,Manila,Philippines,MNL,14.5086,121.019997,75
+RPLL,YSSY,Phillipine Airways,Ninoy Aquino International Airport,Manila,Philippines,MNL,14.5086,121.019997,75,Sydney Kingsford Smith International Airport,Sydney,Australia,SYD,-33.94609833,151.177002,21
+EGLC,EDDF,Lufthansa,London City Airport,London,United Kingdom,LCY,51.505299,0.055278,19,Frankfurt am Main International Airport,Frankfurt,Germany,FRA,50.0333333,8.5705556,364
