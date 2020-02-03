@@ -22,9 +22,14 @@ module.exports = {
       filename: 'index.html',
       template: 'src/index.html'
     }),
-    new CopyWebpackPlugin([{
+    new CopyWebpackPlugin([
+      {
         from: 'src/globe.geo.json',
         to: '.'
+      },
+      {
+        from: 'src/data/flightData.csv',
+        to: './data/flightData.csv'
       }
     ])
   ]

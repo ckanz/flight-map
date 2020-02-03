@@ -1,50 +1,161 @@
 const style = require('./style.css');
+import {
+  json,
+  csv
+} from 'd3-request';
+import {
+  select,
+  selectAll
+} from 'd3-selection';
+import {
+  geoPath,
+  geoSatellite,
+  geoOrthographic,
+  geoEquirectangular,
+  geoConicConformal,
+  geoAzimuthalEqualArea,
+  geoStereographic
+} from 'd3-geo';
+import {
+  geoAiry,
+  geoAitoff,
+}  from 'd3-geo-projection';
+import {
+  zoom
+} from 'd3-zoom';
+import {
+  event,
+  drag,
+  mouse
+} from 'd3';
+import {
+  scaleLinear
+} from 'd3-scale';
 
-const width = 1000,
-  height = 425;
+const width = window.screen.availWidth || 1000;
+const height = window.screen.availHeight || 1000;
+const mapRadius = height / 3;
+const projection = geoOrthographic()
+  .scale(mapRadius)
+  .translate([width / 2, height / 2]);
 
-const path = d3.geoPath()
-  .projection(d3.geoEquirectangular());
+const path = geoPath()
+  .projection(projection);
 
-const lineData = [{
-  type: 'LineString',
-  coordinates: [
-    [-0.461941, 51.4706],
-    [151.177002, -33.94609833]
-  ]
-}];
+const getData = callback => {
+  const flightData = csv('./data/flightData.csv', csv => {
+    const countriesVisisted = [];
+    const flightArcs = csv.map(row => {
+      countriesVisisted.push(row.target_country);
+      return {
+        type: 'LineString',
+        coordinates: [
+          [row.source_longitude, row.source_latitude],
+          [row.target_longitude, row.target_latitude]
+        ]
+      };
+    });
+    callback({ flightArcs, countriesVisisted });
+  });
+};
 
-const svg = d3
-  .select('#my-map')
-  .append('svg')
-  .attr('width', width)
-  .attr('height', height);
+const rotateXScale = scaleLinear().range([-180, 180]).domain([0, width]);
+const rotateYScale = scaleLinear().range([0, 180]).domain([0, height]);
+let latestRotation = [0, 0];
 
-d3.json('./globe.geo.json', (json) => {
-    countriesGroup = svg
+const updateRotation = () => {
+  projection.rotate([rotateXScale(event.x), 0]);
+  selectAll("path").attr("d", path);
+};
+
+const setNewRotation = () => { latestRotation = [rotateXScale(event.x), 0] }
+
+const autoRotate = () => {
+  latestRotation[0] += 0.5;
+  projection.rotate(latestRotation);
+  selectAll("path").attr("d", path);
+};
+
+const getNewAtmosphereRadius = () => (mapRadius / 20) + (Math.random() * (mapRadius / 100))
+
+const flicker = () => {
+  document.getElementById('atmosphere-offset').setAttribute('dx', getNewAtmosphereRadius())
+};
+
+const drawMap = ({ flightArcs, countriesVisisted }) => {
+  json('./globe.geo.json', (json) => {
+    const countriesGroup = select('#flightmap')
+      /*
+      .call(
+        drag()
+          .on("drag", updateRotation)
+          .on("end", setNewRotation)
+      )
+      */
+      .call(
+        zoom()
+        .scaleExtent([1, 10])
+        .translateExtent([
+          [0, 0],
+          [width, height]
+        ])
+        .on('zoom', () => {
+          countriesGroup.attr('transform', event.transform)
+        })
+      )
       .append('g')
       .attr('id', 'map');
 
     countriesGroup
-      .append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', width)
-      .attr('height', height);
+      .append('circle')
+      .attr('id', 'atmoshpere')
+      .attr('filter', 'url(#atmosphere-glow)')
+      .attr('cx', width / 2)
+      .attr('cy', height / 2)
+      .attr('r', mapRadius);
 
-    countries = countriesGroup
+    countriesGroup
+      .append('circle')
+      .attr('id', 'ocean')
+      .attr('cx', width / 2)
+      .attr('cy', height / 2)
+      .attr('r', mapRadius);
+
+    countriesGroup
       .selectAll('path')
       .data(json.features)
       .enter()
       .append('path')
       .attr('d', path)
-      .attr('id', (d) => `country ${d.properties.iso_a3}`)
-      .attr('class', 'country');
+      .attr('id', d => `country ${d.properties.iso_a3}`)
+      .attr('filter', d => {
+        if (countriesVisisted.includes(d.properties.name)) {
+          return 'url(#path-glow)';
+        }
+      })
+      .attr('class', d => {
+        if (countriesVisisted.includes(d.properties.name)) {
+          return 'country highlight';
+        }
+        return 'country';
+      });
 
-    const pathArcs = svg.selectAll('.flightarc')
-      .data(lineData)
+    countriesGroup
+      .selectAll('.flightarc')
+      .data(flightArcs)
       .enter()
       .append('path')
       .attr('class', 'flightarc')
+      .attr('filter', 'url(#path-glow)')
       .attr('d', path);
+
+    setInterval(() => {
+      autoRotate();
+      flicker();
+    }, 33);
   });
+};
+
+getData(data => {
+  drawMap(data);
+});

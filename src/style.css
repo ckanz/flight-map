@@ -1,19 +1,48 @@
-svg rect {
-  fill: lightblue;
+html, body {
+  margin:0;
+  padding:0;
+  overflow:hidden;
 }
 
-.country {
-  fill: grey;
-  stroke: lightgrey;
-  stroke-width: 0;
+svg {
+  background: rgb(2,0,36);
+  background: radial-gradient(circle, rgba(30,30,30,1) 0%, rgba(0,0,0,1) 100%);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.country:hover {
+
+svg #ocean {
   fill: black;
+  stroke: green;
+  stroke-width: 1px;
 }
 
-.flightarc {
-  stroke-width: 2px;
+svg #atmoshpere {
+  fill: green;
+  fill-opacity: 0.5;
+}
+
+svg .country {
+  stroke: darkgreen;
+  stroke-width: 1;
+  fill: rgb(10,10,10);
+}
+
+svg .highlight {
+  stroke: green;
+  fill: darkgreen;
+  fill-opacity: 0.1;
+}
+
+svg .flightarc {
   stroke: orange;
-  fill: none;
+  opacity: 0.7;
+  stroke-width: 1px;
+  fill-opacity: 0;
 }
