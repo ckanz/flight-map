@@ -2,11 +2,29 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Clemens Anzmann's Flight Map</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Clemens Anzmann's Flight Map</title>
 </head>
 
 <body>
+  <svg id="flightmap">
+    <defs>
+      <filter id="atmosphere-glow" x="0" y="0" width="200%" height="200%">
+        <feOffset id="atmosphere-offset" result="offOut" in="SourceGraphic" dx="20" dy="0" />
+        <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+        <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+      </filter>
+      <filter id="path-glow">
+        <fegaussianblur class="blur" result="coloredBlur" stddeviation="4"></fegaussianblur>
+        <femerge>
+          <femergenode in="coloredBlur"></femergenode>
+          <femergenode in="coloredBlur"></femergenode>
+          <femergenode in="coloredBlur"></femergenode>
+          <femergenode in="SourceGraphic"></femergenode>
+        </femerge>
+      </filter>
+    </defs>
+  </svg>
 </body>
 
 </html>

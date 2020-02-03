@@ -68,17 +68,23 @@ const updateRotation = () => {
   selectAll("path").attr("d", path);
 };
 
+const setNewRotation = () => { latestRotation = [rotateXScale(event.x), 0] }
+
 const autoRotate = () => {
   latestRotation[0] += 0.5;
   projection.rotate(latestRotation);
   selectAll("path").attr("d", path);
 };
 
-const setNewRotation = () => { latestRotation = [rotateXScale(event.x), 0] }
+const getNewAtmosphereRadius = () => (mapRadius / 20) + (Math.random() * (mapRadius / 100))
+
+const flicker = () => {
+  document.getElementById('atmosphere-offset').setAttribute('dx', getNewAtmosphereRadius())
+};
 
 const drawMap = arcData => {
   json('./globe.geo.json', (json) => {
-    const countriesGroup = select('body').append('svg')
+    const countriesGroup = select('#flightmap')
       /*
       .call(
         drag()
@@ -102,6 +108,16 @@ const drawMap = arcData => {
 
     countriesGroup
       .append('circle')
+      .attr('id', 'atmoshpere')
+      .attr('filter', 'url(#atmosphere-glow)')
+      .attr('cx', width / 2)
+      .attr('cy', height / 2)
+      .attr('r', mapRadius);
+
+    countriesGroup
+      .append('circle')
+      .attr('id', 'ocean')
+      .attr('filter', 'url(#path-glow)')
       .attr('cx', width / 2)
       .attr('cy', height / 2)
       .attr('r', mapRadius);
@@ -112,6 +128,7 @@ const drawMap = arcData => {
       .enter()
       .append('path')
       .attr('d', path)
+      // .attr('filter', 'url(#path-glow)')
       .attr('id', (d) => `country ${d.properties.iso_a3}`)
       .attr('class', 'country');
 
@@ -121,10 +138,12 @@ const drawMap = arcData => {
       .append('path')
       .attr('stroke-linecap', 'round')
       .attr('class', 'flightarc')
+      .attr('filter', 'url(#path-glow)')
       .attr('d', path);
 
     setInterval(() => {
       autoRotate();
+      flicker();
     }, 10);
   });
 };
