@@ -32,13 +32,14 @@ import {
   scaleLinear
 } from 'd3-scale';
 
-const width = 1000;
-const height = 1000;
-var projection = geoOrthographic()
-    .scale(250)
-    .translate([width / 2, height / 2])
-    .rotate([0, 0])
-    .precision(0.5);
+const width = window.screen.availWidth || 1000;
+const height = window.screen.availHeight || 1000;
+const mapRadius = height / 3;
+const projection = geoOrthographic()
+  .scale(mapRadius)
+  .translate([width / 2, height / 2])
+  .rotate([0, 0])
+  .precision(0.5);
 
 const path = geoPath()
   .projection(projection);
@@ -68,22 +69,16 @@ const updateRotation = () => {
 };
 
 const autoRotate = () => {
-  latestRotation[0] += .5; // = latestRotation[0] + 1
+  latestRotation[0] += 0.5;
   projection.rotate(latestRotation);
   selectAll("path").attr("d", path);
-  console.log('autoRotate', latestRotation)
 };
 
 const setNewRotation = () => { latestRotation = [rotateXScale(event.x), 0] }
 
 const drawMap = arcData => {
-  const svg = select('#my-map')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height);
-
   json('./globe.geo.json', (json) => {
-    const countriesGroup = svg
+    const countriesGroup = select('body').append('svg')
       /*
       .call(
         drag()
@@ -109,7 +104,7 @@ const drawMap = arcData => {
       .append('circle')
       .attr('cx', width / 2)
       .attr('cy', height / 2)
-      .attr('r', width / 4);
+      .attr('r', mapRadius);
 
     const countries = countriesGroup
       .selectAll('path')
@@ -124,7 +119,7 @@ const drawMap = arcData => {
       .data(arcData)
       .enter()
       .append('path')
-      // .attr('stroke-linecap', 'round')
+      .attr('stroke-linecap', 'round')
       .attr('class', 'flightarc')
       .attr('d', path);
 
