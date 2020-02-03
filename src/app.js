@@ -117,7 +117,6 @@ const drawMap = arcData => {
     countriesGroup
       .append('circle')
       .attr('id', 'ocean')
-      .attr('filter', 'url(#path-glow)')
       .attr('cx', width / 2)
       .attr('cy', height / 2)
       .attr('r', mapRadius);
@@ -128,7 +127,6 @@ const drawMap = arcData => {
       .enter()
       .append('path')
       .attr('d', path)
-      // .attr('filter', 'url(#path-glow)')
       .attr('id', (d) => `country ${d.properties.iso_a3}`)
       .attr('class', 'country');
 
@@ -144,7 +142,7 @@ const drawMap = arcData => {
     setInterval(() => {
       autoRotate();
       flicker();
-    }, 10);
+    }, 33);
   });
 };
 
