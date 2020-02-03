@@ -4,4 +4,4 @@ This is a map of all the flights I've taken (before 2020) created with [d3](http
 
 ---
 
-![screenshot](https://github.com/ckanz/flight-map/blob/add-data/screenshot.png?raw=true)
+![screenshot](https://github.com/ckanz/flight-map/blob/master/screenshot.png?raw=true)
