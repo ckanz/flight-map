@@ -15,11 +15,11 @@
         <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
       </filter>
       <filter id="path-glow">
-        <fegaussianblur class="blur" result="coloredBlur" stddeviation="2"></fegaussianblur>
+        <fegaussianblur result="blurOut" stddeviation="2"></fegaussianblur>
         <femerge>
-          <femergenode in="coloredBlur"></femergenode>
-          <femergenode in="coloredBlur"></femergenode>
-          <femergenode in="coloredBlur"></femergenode>
+          <femergenode in="blurOut"></femergenode>
+          <femergenode in="blurOut"></femergenode>
+          <femergenode in="blurOut"></femergenode>
           <femergenode in="SourceGraphic"></femergenode>
         </femerge>
       </filter>
