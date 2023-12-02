@@ -2,6 +2,8 @@
 
 This is a map of all the flights I've taken (before 2020) created with [d3](https://github.com/d3/d3) and the help of [this great tutorial by Andy Barefoot](https://medium.com/@andybarefoot/making-a-map-using-d3-js-8aa3637304ee).
 
+The visualisation is hosted on [https://ckanz.github.io/flight-map/dist/](https://ckanz.github.io/flight-map/dist/).
+
 ---
 
 ![screenshot](https://github.com/ckanz/flight-map/blob/master/screenshot.png?raw=true)
